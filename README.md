@@ -77,5 +77,27 @@ and how it was diagnosed and fixed.
 
 ---
 
+## What the troubleshooting log proves
+
+The `09-what-i-broke-and-fixed.md` document is the most valuable single file in
+this portfolio for demonstrating real hands-on experience.
+
+Anyone can follow a tutorial and get a working result. The issues documented here
+were not in any tutorial:
+- DNS service startup type changed by mistake during earlier troubleshooting
+- pfSense rule order creating an accidental deny above a broad allow
+- DHCP relay not configured - an invisible gap that only shows up with a routed network
+- Splunk inputs.conf without outputs.conf - a documentation gap that caught me
+- Nessus scan returning false-zero results due to firewall - not an obvious failure
+- SYSVOL permissions broken by a snapshot rollback
+- Hybrid DNS not working because AD Connect is identity sync, not name resolution
+- NAT outbound rule missing for a manually-added VLAN
+
+These are the kinds of issues that only appear when you build something yourself,
+without guardrails. Recognising them, diagnosing them, and fixing them without
+assistance is what real IT work looks like.
+
+---
+
 
 
