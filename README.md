@@ -37,3 +37,10 @@ pfSense enforces network segmentation. GPOs enforce workstation security baselin
 Five independent layers of security visibility and control - each aligned to a
 different Security+ or AZ-104 domain.
 
+**Everything documented:** Every deployment step, every configuration decision,
+every architectural choice, and - most importantly - every issue that went wrong
+and how it was diagnosed and fixed.
+
+---
+
+
