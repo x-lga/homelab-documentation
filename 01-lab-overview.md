@@ -39,5 +39,13 @@ on-premises infrastructure they cannot fully migrate, and they connect it to
 Azure using AD Connect. Understanding the hybrid sync - and what happens when
 it breaks - is more practically valuable than understanding only the cloud side.
 
+**Why Splunk Free instead of just reviewing logs manually:**
+Manual log review is an L1 skill. SIEM correlation - writing SPL queries,
+building dashboards, detecting patterns across multiple hosts - is what
+differentiates a security-aware engineer from one who only checks individual
+logs. Splunk Free imposes constraints (no scheduled searches, single CPU) that
+force you to learn efficient query design.
+
+
 
 
