@@ -53,6 +53,32 @@ is a practical skill that extends Security+ theory into operational practice.
 
 ---
 
+## Hardware and Hypervisor
+
+| Component | Specification |
+|-----------|-------------|
+| Hypervisor | Proxmox VE 8.x |
+| Host platform | Dedicated spare PC (alternatively: high-spec laptop) |
+| Minimum RAM | 16 GB (lab runs comfortably at this level with careful VM scheduling) |
+| Recommended RAM | 32 GB (allows all VMs to run simultaneously without swapping) |
+| Storage | 512 GB SSD for VM images (NVMe preferred - significant performance impact) |
+| Network | Single physical NIC (VLANs handled by Proxmox Linux bridges and pfSense) |
+
+**Cost consideration:**
+The entire lab was built using:
+- Proxmox VE: free (open source)
+- Windows Server 2022: free evaluation licence (180 days, renewable)
+- pfSense: free (open source)
+- Splunk Free: free tier (up to 500MB/day ingestion)
+- Nessus Essentials: free tier (up to 16 hosts)
+- Microsoft Intune: included in M365 Developer E5 Sandbox (free 90-day, renewable)
+- Azure: free trial ($200 credit) + M365 Developer Sandbox
+
+Total hardware cost: $0 if using existing hardware. A refurbished small-form-factor
+PC with 32 GB RAM and a 512 GB SSD typically costs $150-300 and is sufficient.
+
+---
+
 
 
 
