@@ -16,3 +16,12 @@ repaired from that breakage.
 This is not a tutorial. It is a build record.
 
 ---
+
+## Lab Design Philosophy
+
+**Why simulate an enterprise rather than just install individual components:**
+Individual components in isolation teach you how to configure them. Components
+integrated together teach you how they interact, how they fail, and how to diagnose
+which layer of a multi-component stack has broken. Every production IT environment
+is an integrated stack - you almost never see pure, isolated components.
+
