@@ -14,3 +14,14 @@ scanning, and Microsoft Intune endpoint management.
 by real hands-on experience in a working lab, not just guided tutorials.**
 
 ---
+
+## What makes this lab enterprise-grade
+
+Most home labs run a single VM with a basic AD install. This lab was designed to
+simulate the integrated architecture of a real small enterprise:
+
+**Network segmentation:** Three VLANs (Work/Guest/Management) with pfSense enforcing
+firewall rules between them. Guest devices cannot reach corporate resources. IoT
+devices cannot communicate with each other. Management segment is accessible only
+from designated admin IPs. This is not a flat network - it is a defence-in-depth
+network architecture.
