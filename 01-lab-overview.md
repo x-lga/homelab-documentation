@@ -33,4 +33,11 @@ rule-writing practice - understanding that firewall rules have order, that block
 wrong traffic has consequences, and that diagnosing "why can't this device reach
 this resource" requires understanding the firewall rule chain.
 
+**Why Azure hybrid rather than cloud-only:**
+Cloud-only Entra ID is a simplified architecture. Most organisations have
+on-premises infrastructure they cannot fully migrate, and they connect it to
+Azure using AD Connect. Understanding the hybrid sync - and what happens when
+it breaks - is more practically valuable than understanding only the cloud side.
+
+
 
