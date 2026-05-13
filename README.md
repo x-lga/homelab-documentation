@@ -25,3 +25,9 @@ firewall rules between them. Guest devices cannot reach corporate resources. IoT
 devices cannot communicate with each other. Management segment is accessible only
 from designated admin IPs. This is not a flat network - it is a defence-in-depth
 network architecture.
+
+**Hybrid identity:** On-premises AD synced to Azure Entra ID via AD Connect with
+Password Hash Sync. This is the most common enterprise Azure architecture — the one
+that requires understanding both sides of the identity boundary, not just cloud-native
+deployments.
+
