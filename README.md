@@ -63,5 +63,19 @@ and how it was diagnosed and fixed.
 
 ---
 
+## Skills validated across the full lab build
+
+| Domain | Skills practiced |
+|--------|-----------------|
+| Virtualisation (A+) | Proxmox VM lifecycle, snapshots, VLAN-aware bridge, storage types |
+| Networking (Net+) | VLAN design, inter-VLAN routing, DHCP relay, firewall rules, VPN, OSI-layer troubleshooting |
+| Security (Sec+) | Defence-in-depth architecture, SIEM deployment, vulnerability scanning, incident response playbooks, network segmentation |
+| Cloud (AZ-900/104) | Azure hybrid identity, VNet/NSG, RBAC, Azure Monitor + KQL, Intune |
+| Process (ITIL 4) | Incident management, problem management, change management, event management |
+| Scripting | PowerShell AD automation, Bash system administration |
+| Real troubleshooting | 8 documented real issues - DNS, firewall, DHCP, SIEM, scanning, GPO, DNS, NAT |
+
+---
+
 
 
