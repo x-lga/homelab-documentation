@@ -43,4 +43,25 @@ and how it was diagnosed and fixed.
 
 ---
 
+## Repository Contents
+
+| File | Purpose |
+|------|---------|
+| `01-lab-overview.md` | Purpose, design philosophy, hardware specs, VM inventory, network summary, cost breakdown |
+| `02-proxmox-hypervisor-setup.md` | Proxmox installation, community repo setup, VLAN-aware bridge, VM creation guide, snapshot strategy, auto-shutdown |
+| `03-windows-server-ad-dns-dhcp.md` | AD DS promotion with full PowerShell, OU structure, lab user accounts, DNS verification, DHCP with relay context, GPO configuration, domain join |
+| `04-pfsense-firewall-and-vlans.md` | VLAN interface creation, DHCP per VLAN, full firewall rule tables with justification per rule, WireGuard VPN config, isolation verification tests |
+| `05-azure-hybrid-connection.md` | AD Connect lab configuration, sync monitoring PowerShell, health troubleshooting steps |
+| `06-splunk-siem-deployment.md` | Splunk Free install on Ubuntu, Universal Forwarder on Windows with inputs.conf and outputs.conf, VLAN 99 placement rationale, dashboard SPL queries |
+| `07-nessus-vulnerability-scanning.md` | Nessus Essentials install, scan configuration, CVSS interpretation table, common lab findings, re-scan workflow, export documentation |
+| `08-intune-endpoint-management.md` | Lab Intune configuration, compliance policy settings table, Conditional Access integration explanation |
+| `09-what-i-broke-and-fixed.md` | Eight real issues: DNS service startup type, pfSense blocking AD Connect, DHCP relay missing, Splunk missing outputs.conf, Nessus firewall blocking scan, GPO SYSVOL permissions after snapshot rollback, hybrid DNS misunderstanding, Kali missing NAT rule |
+| `10-cert-to-lab-mapping.md` | Every A+, Net+, Sec+, AZ-900, AZ-104, ITIL 4 objective mapped to a specific lab component |
+| `diagrams/lab-topology.md` | Full ASCII architecture diagram showing all VMs, VLANs, IP addresses, Azure components, and traffic flow examples |
+| `diagrams/vlan-firewall-rules.md` | Complete firewall rule tables for all four interfaces (WORK, GUEST, MGMT, WireGuard) with rule-by-rule justification |
+| `diagrams/ad-connect-sync-flow.md` | AD Connect architecture diagram showing sync engine, connectors, metaverse, what happens each cycle, and lab sync scope |
+
+---
+
+
 
