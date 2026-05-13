@@ -31,3 +31,9 @@ Password Hash Sync. This is the most common enterprise Azure architecture — th
 that requires understanding both sides of the identity boundary, not just cloud-native
 deployments.
 
+**Defence in depth:** Splunk SIEM receives Windows Security event logs. Nessus
+scans internal hosts for vulnerabilities. Intune enforces device compliance.
+pfSense enforces network segmentation. GPOs enforce workstation security baseline.
+Five independent layers of security visibility and control - each aligned to a
+different Security+ or AZ-104 domain.
+
