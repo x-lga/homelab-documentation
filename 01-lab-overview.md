@@ -25,3 +25,12 @@ integrated together teach you how they interact, how they fail, and how to diagn
 which layer of a multi-component stack has broken. Every production IT environment
 is an integrated stack - you almost never see pure, isolated components.
 
+**Why pfSense with VLANs instead of a simpler network:**
+Any network that does not practice segmentation is not teaching real network security.
+VLAN separation between corporate, guest, and management traffic is standard in
+every enterprise environment worth supporting. The pfSense firewall also forces
+rule-writing practice - understanding that firewall rules have order, that blocking
+wrong traffic has consequences, and that diagnosing "why can't this device reach
+this resource" requires understanding the firewall rule chain.
+
+
