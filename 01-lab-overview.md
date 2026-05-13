@@ -46,6 +46,14 @@ differentiates a security-aware engineer from one who only checks individual
 logs. Splunk Free imposes constraints (no scheduled searches, single CPU) that
 force you to learn efficient query design.
 
+**Why Nessus instead of ignoring vulnerability management:**
+Vulnerability scanning is part of every enterprise security programme. Understanding
+what Nessus reports, how to interpret CVSS scores, and what to do with the findings
+is a practical skill that extends Security+ theory into operational practice.
+
+---
+
+
 
 
 
