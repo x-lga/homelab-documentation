@@ -99,5 +99,22 @@ assistance is what real IT work looks like.
 
 ---
 
+## Impact
+
+This lab was built incrementally over several weeks of independent study and
+experimentation. It represents the hands-on component of every certification
+studied in this portfolio - the difference between knowing what a DHCP relay
+is and having debugged a silent DHCP failure because the relay was missing;
+between knowing what pfSense rule order means and having accidentally blocked
+AD Connect sync with a misplaced rule; between knowing what Splunk inputs.conf
+does and having spent an afternoon wondering why no events appeared before
+discovering outputs.conf was the missing piece.
+
+That gap between book knowledge and operational knowledge is what this lab closes.
+
+
+---
+
+
 
 
