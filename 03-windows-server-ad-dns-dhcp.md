@@ -43,3 +43,17 @@ Install-ADDSForest `
 
 # Server will restart automatically after promotion
 ```
+
+### Verify AD Installation
+
+```powershell
+# Confirm the DC is operational
+Get-ADDomainController | Select-Object Name, Domain, Forest, IPv4Address
+
+# Verify SYSVOL and NETLOGON shares are present (required for GPOs and logon scripts)
+net share | Select-String -Pattern "SYSVOL|NETLOGON"
+
+# Check all AD-related services are running
+$ADServices = @("ADWS", "KDC", "Netlogon", "DNS", "NTFRS", "W32Time")
+Get-Service $ADServices | Select-Object Name, Status, StartType
+```
