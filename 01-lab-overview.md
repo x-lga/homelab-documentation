@@ -120,6 +120,31 @@ Start win10-client or kali when specifically needed.
 
 ---
 
+## Lab Component to Certificate Mapping
+
+| Lab Component | A+ | Net+ | Sec+ | AZ-900 | AZ-104 | ITIL 4 |
+|--------------|:--:|:----:|:----:|:------:|:------:|:------:|
+| Proxmox hypervisor | ✓ | | | | | |
+| Windows Server 2022 AD/DNS/DHCP | ✓ | ✓ | | | | |
+| Group Policy Objects | ✓ | | ✓ | | | |
+| pfSense firewall | | ✓ | ✓ | | | |
+| VLAN segmentation | | ✓ | ✓ | | | |
+| WireGuard VPN | | ✓ | ✓ | | | |
+| Azure Entra ID | | | | ✓ | ✓ | |
+| Azure AD Connect (hybrid) | | | | ✓ | ✓ | |
+| Azure VNet / NSG | | | | ✓ | ✓ | |
+| Azure RBAC | | | | | ✓ | |
+| Azure Monitor + KQL | | | | | ✓ | |
+| Microsoft Intune | | | | ✓ | ✓ | |
+| Splunk SIEM + SPL | | | ✓ | | | |
+| Nessus vulnerability scanning | | | ✓ | | | |
+| ITIL 4 ticketing + runbooks | | | | | | ✓ |
+| PowerShell AD automation | ✓ | | | | | |
+| Bash system administration | ✓ | | | | | |
+
+
+---
+
 
 
 
