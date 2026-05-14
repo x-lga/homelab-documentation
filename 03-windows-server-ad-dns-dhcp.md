@@ -57,3 +57,23 @@ net share | Select-String -Pattern "SYSVOL|NETLOGON"
 $ADServices = @("ADWS", "KDC", "Netlogon", "DNS", "NTFRS", "W32Time")
 Get-Service $ADServices | Select-Object Name, Status, StartType
 ```
+
+### Create the Organisational Unit Structure
+
+```powershell
+# Create a hierarchical OU structure matching a real enterprise layout
+$Domain = "DC=contoso,DC=local"
+
+New-ADOrganizationalUnit -Name "Staff"          -Path $Domain
+New-ADOrganizationalUnit -Name "IT"             -Path "OU=Staff,$Domain"
+New-ADOrganizationalUnit -Name "Finance"        -Path "OU=Staff,$Domain"
+New-ADOrganizationalUnit -Name "Operations"     -Path "OU=Staff,$Domain"
+New-ADOrganizationalUnit -Name "Human Resources"-Path "OU=Staff,$Domain"
+New-ADOrganizationalUnit -Name "Contractors"    -Path $Domain
+New-ADOrganizationalUnit -Name "Service Accounts"-Path $Domain
+New-ADOrganizationalUnit -Name "Workstations"   -Path $Domain
+New-ADOrganizationalUnit -Name "Disabled Users" -Path $Domain
+New-ADOrganizationalUnit -Name "Azure-Sync"     -Path $Domain
+
+Write-Host "OU structure created."
+```
