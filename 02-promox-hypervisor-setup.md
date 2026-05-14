@@ -42,3 +42,50 @@ Proxmox was chosen over alternatives for these specific reasons:
 
 ---
 
+## Initial Configuration
+
+### Update Proxmox (no subscription required)
+
+The default Proxmox repository requires a paid subscription. For a home lab,
+use the no-subscription community repository:
+
+```bash
+# SSH to Proxmox host or open Shell in the web UI
+# Remove the enterprise repo
+rm /etc/apt/sources.list.d/pve-enterprise.list
+
+# Add the no-subscription community repo
+cat >> /etc/apt/sources.list << 'EOF'
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+EOF
+
+# Remove the Ceph enterprise repo (not needed for this lab)
+rm /etc/apt/sources.list.d/ceph.list 2>/dev/null
+
+# Update and upgrade
+apt update && apt dist-upgrade -y
+```
+
+### Create the Network Bridge Structure
+
+For VLANs to work, Proxmox needs a single bridge with VLAN awareness enabled.
+This allows a single physical NIC to carry all VLAN-tagged traffic.
+
+```
+Proxmox Web UI → Node → Network → Create → Linux Bridge
+
+Name       : vmbr0
+IP address : 192.168.1.200/24  (Proxmox management IP — on your home network)
+Gateway    : 192.168.1.1
+Bridge ports: enp2s0 (or your physical NIC name — check with: ip link show)
+VLAN aware : YES ← this is critical
+Comment    : Main bridge — VLAN-aware for lab segmentation
+
+→ Apply Configuration
+```
+
+**Why VLAN-aware bridge:** Without this setting, Proxmox passes all traffic
+untagged and pfSense cannot segment it into VLANs. With VLAN-aware enabled,
+pfSense can tag outbound traffic with 802.1Q VLAN IDs and Proxmox forwards
+the tags to the correct VMs.
+
