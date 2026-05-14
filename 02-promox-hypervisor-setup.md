@@ -89,3 +89,19 @@ untagged and pfSense cannot segment it into VLANs. With VLAN-aware enabled,
 pfSense can tag outbound traffic with 802.1Q VLAN IDs and Proxmox forwards
 the tags to the correct VMs.
 
+
+### Configure Storage
+
+For the lab, local-lvm (the default thin-provisioned LVM storage) is used for
+VM disks:
+
+```
+Proxmox Web UI → Datacenter → Storage → local-lvm
+This is already configured for VM disk images.
+
+For ISO uploads (Windows Server, Kali, Ubuntu):
+Proxmox Web UI → Node → local → ISO Images → Upload
+```
+
+---
+
