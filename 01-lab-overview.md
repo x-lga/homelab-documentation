@@ -79,6 +79,28 @@ PC with 32 GB RAM and a 512 GB SSD typically costs $150-300 and is sufficient.
 
 ---
 
+## Complete VM Inventory
+
+| VM Name | OS | Role | vCPUs | RAM | Disk | VLAN | IP Address |
+|---------|-----|------|-------|-----|------|------|-----------|
+| dc01 | Windows Server 2022 Standard | AD DS, DNS, DHCP, AD Connect, Splunk UF | 2 | 4 GB | 60 GB | VLAN 10 | 10.10.10.10 |
+| win10-client | Windows 10 22H2 | Domain-joined client, Intune enrolled | 2 | 2 GB | 50 GB | VLAN 10 | 10.10.10.50 (DHCP) |
+| pfsense | pfSense 2.7.x | Firewall, VLAN routing, WireGuard VPN, DHCP | 1 | 1 GB | 8 GB | All VLANs | 10.10.x.1 per VLAN |
+| ubuntu-admin | Ubuntu 22.04 LTS | Bash scripting lab, Splunk Forwarder, Nessus scanner source | 2 | 2 GB | 30 GB | VLAN 10 | 10.10.10.20 |
+| splunk-server | Ubuntu 22.04 LTS | Splunk Free SIEM, log aggregation and dashboards | 2 | 4 GB | 50 GB | VLAN 99 | 10.10.99.10 |
+| kali | Kali Linux 2024.x | Penetration testing, Burp Suite, Nmap, vulnerability verification | 2 | 4 GB | 40 GB | VLAN 20 | 10.10.20.10 (DHCP) |
+
+**Total resource consumption when all VMs are running simultaneously:**
+- vCPUs: 11 (Proxmox host handles scheduling)
+- RAM: 17 GB (tight at 16 GB host — recommend 32 GB or run subsets of VMs)
+- Storage: ~238 GB allocated across all disks
+
+**VM scheduling recommendation for 16 GB hosts:**
+Run dc01 + pfsense + ubuntu-admin + splunk-server as the always-on core (11 GB RAM).
+Start win10-client or kali when specifically needed.
+
+---
+
 
 
 
