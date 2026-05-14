@@ -157,5 +157,30 @@ Proxmox Web UI → VM → Hardware → Network Device → Edit
   VLAN Tag: 20    (for Isolated/Kali VM)
   VLAN Tag: 99    (for Management/Splunk VM)
   VLAN Tag: (none) (for pfSense - it receives raw trunk traffic and handles tagging itself)
+
 ```
+
+### Snapshots - use before breaking things
+
+```
+Proxmox Web UI → VM → Snapshots → Take Snapshot
+
+Name       : before-ad-connect-install
+Description: Clean state before installing AD Connect on dc01
+
+→ Take Snapshot
+```
+
+**When to snapshot:**
+- Before installing any major software
+- Before making network configuration changes
+- Before testing anything that might break AD, DNS, or DHCP
+- After getting each lab component to a known-good working state
+
+To revert:
+```
+Proxmox Web UI → VM → Snapshots → [snapshot name] → Rollback
+```
+
+---
 
