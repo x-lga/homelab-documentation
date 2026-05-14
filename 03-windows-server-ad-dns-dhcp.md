@@ -19,3 +19,27 @@ After installing Windows Server 2022 in the Proxmox VM:
 - Set hostname to `dc01` before promoting to domain controller
 
 ---
+
+## Active Directory Domain Services
+
+### Promote to Domain Controller
+
+```powershell
+# Install the AD DS role and management tools
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+
+# Promote to Domain Controller — creates a new forest
+# This also installs DNS (integrated with AD — required)
+Install-ADDSForest `
+    -DomainName             "contoso.local" `
+    -DomainNetBiosName      "CONTOSO" `
+    -ForestMode             "WinThreshold" `
+    -DomainMode             "WinThreshold" `
+    -InstallDns:$true `
+    -SafeModeAdministratorPassword (
+        ConvertTo-SecureString "SafeMode@Lab2026!" -AsPlainText -Force
+    ) `
+    -Force
+
+# Server will restart automatically after promotion
+```
