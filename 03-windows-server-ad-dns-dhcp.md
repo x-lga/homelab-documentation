@@ -143,3 +143,18 @@ Get-DnsServerZone | Where-Object { $_.IsReverseLookupZone -eq $true }
 # ipconfig /registerdns
 # Resolve-DnsName "win10-client.contoso.local"
 ```
+
+### Add a Static DNS Record (Example)
+
+```powershell
+# Add a static A record (useful for lab services that don't register via DHCP)
+Add-DnsServerResourceRecordA `
+    -Name        "splunk" `
+    -ZoneName    "contoso.local" `
+    -IPv4Address "10.10.99.10"
+
+# Verify
+Resolve-DnsName "splunk.contoso.local"
+```
+
+---
