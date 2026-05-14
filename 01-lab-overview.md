@@ -105,9 +105,21 @@ Start win10-client or kali when specifically needed.
 
 | VLAN | Name | Subnet | Gateway | Purpose |
 |------|------|--------|---------|---------|
-| VLAN 10 | Work | 10.10.10.0/24 | 10.10.10.1 | Corporate endpoints — dc01, win10-client, ubuntu-admin |
-| VLAN 20 | Guest / Isolated | 10.10.20.0/24 | 10.10.20.1 | Kali Linux lab — isolated from corporate |
-| VLAN 99 | Management | 10.10.99.0/24 | 10.10.99.1 | Splunk server — accessible only from admin IPs |
+| VLAN 10 | Work | 10.10.10.0/24 | 10.10.10.1 | Corporate endpoints - dc01, win10-client, ubuntu-admin |
+| VLAN 20 | Guest / Isolated | 10.10.20.0/24 | 10.10.20.1 | Kali Linux lab - isolated from corporate |
+| VLAN 99 | Management | 10.10.99.0/24 | 10.10.99.1 | Splunk server - accessible only from admin IPs |
+
+**Inter-VLAN connectivity rules (enforced by pfSense):**
+- VLAN 10 → Internet: Allowed
+- VLAN 10 → VLAN 20: Blocked (corporate cannot reach isolated lab)
+- VLAN 10 → VLAN 99: Allowed from admin IPs only (10.10.10.10 and 10.10.10.20)
+- VLAN 20 → Internet: Allowed (HTTP/HTTPS only)
+- VLAN 20 → VLAN 10: Blocked (Kali cannot reach corporate)
+- VLAN 20 → VLAN 99: Blocked (no SIEM access from isolated network)
+- VLAN 99 → All: Allowed (management must reach everything for log forwarding)
+
+---
+
 
 
 
