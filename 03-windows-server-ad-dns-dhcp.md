@@ -77,3 +77,45 @@ New-ADOrganizationalUnit -Name "Azure-Sync"     -Path $Domain
 
 Write-Host "OU structure created."
 ```
+
+### Create Lab User Accounts
+
+```powershell
+# Create several test users across OUs for realistic testing
+$SecurePW = ConvertTo-SecureString "Welcome@Lab2026!" -AsPlainText -Force
+
+$Users = @(
+    @{ First="Jane"; Last="Mwangi"; OU="OU=Finance,OU=Staff"; Dept="Finance"; Title="Accountant" },
+    @{ First="Brian"; Last="Otieno"; OU="OU=IT,OU=Staff"; Dept="IT"; Title="IT Support Analyst" },
+    @{ First="Amina"; Last="Hassan"; OU="OU=Human Resources,OU=Staff"; Dept="HR"; Title="HR Coordinator" },
+    @{ First="David"; Last="Mutua"; OU="OU=IT,OU=Staff"; Dept="IT"; Title="Systems Administrator" },
+    @{ First="testuser1"; Last=""; OU="OU=Azure-Sync"; Dept="IT"; Title="Test Account" }
+)
+
+foreach ($User in $Users) {
+    if ($User.Last -ne "") {
+        $Username    = ($User.First.Substring(0,1) + $User.Last).ToLower()
+        $DisplayName = "$($User.First) $($User.Last)"
+    } else {
+        $Username    = $User.First.ToLower()
+        $DisplayName = $User.First
+    }
+
+    New-ADUser `
+        -Name              $DisplayName `
+        -GivenName         $User.First `
+        -Surname           $User.Last `
+        -SamAccountName    $Username `
+        -UserPrincipalName "$Username@contoso.local" `
+        -Department        $User.Dept `
+        -Title             $User.Title `
+        -AccountPassword   $SecurePW `
+        -Enabled           $true `
+        -ChangePasswordAtLogon $false `
+        -Path              "$($User.OU),DC=contoso,DC=local"
+
+    Write-Host "Created: $Username ($DisplayName)"
+}
+```
+
+---
