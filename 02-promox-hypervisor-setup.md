@@ -147,3 +147,15 @@ Network:
   Model   : VirtIO (best performance)
 ```
 
+### VM VLAN assignment in Proxmox
+
+Set the VLAN tag on each VM's network interface to place it in the correct segment:
+
+```
+Proxmox Web UI → VM → Hardware → Network Device → Edit
+  VLAN Tag: 10    (for Work segment VMs - dc01, win10-client, ubuntu-admin)
+  VLAN Tag: 20    (for Isolated/Kali VM)
+  VLAN Tag: 99    (for Management/Splunk VM)
+  VLAN Tag: (none) (for pfSense - it receives raw trunk traffic and handles tagging itself)
+```
+
