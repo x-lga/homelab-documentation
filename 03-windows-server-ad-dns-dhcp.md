@@ -119,3 +119,9 @@ foreach ($User in $Users) {
 ```
 
 ---
+
+## DNS Configuration
+
+Active Directory DNS is installed and configured automatically during the domain
+promotion. The domain controller serves as the authoritative DNS server for
+`contoso.local`.
