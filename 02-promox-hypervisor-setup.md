@@ -22,3 +22,23 @@ Proxmox was chosen over alternatives for these specific reasons:
   physical managed switches - the entire segmented network runs in software
 
 ---
+
+## Installation
+
+1. Download Proxmox VE ISO from `proxmox.com/downloads`
+2. Write to a USB drive: `dd if=proxmox-ve_8.x.iso of=/dev/sdX bs=1M` (Linux/Mac)
+   or use Rufus (Windows) in DD mode
+3. Boot the target machine from USB
+4. Follow the installer:
+   - Target disk: select your SSD
+   - Country/timezone: configure
+   - Admin password and email: set strong admin password
+   - Management interface: select your physical NIC
+   - Hostname: `pve.contoso.local` (or your chosen FQDN)
+   - IP: assign a static IP on your home network (e.g., 192.168.1.200/24)
+5. Remove USB after install and reboot
+6. Access the web UI: `https://192.168.1.200:8006`
+   Accept the self-signed certificate warning
+
+---
+
