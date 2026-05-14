@@ -184,3 +184,25 @@ Proxmox Web UI → VM → Snapshots → [snapshot name] → Rollback
 
 ---
 
+## Auto-Shutdown Configuration
+
+To reduce wear on the host and save power, configure VMs to auto-shutdown at night:
+
+```bash
+# On the Proxmox host — create a cron job to shut down all VMs at 23:00
+crontab -e
+
+# Add:
+0 23 * * * for vm in 100 101 102 103 104 105; do qm shutdown $vm; done
+```
+
+Replace the VM IDs with your actual IDs.
+
+For individual VMs, auto-shutdown can also be configured in the guest OS:
+```
+Windows Server: Task Scheduler → Create Task → Run: shutdown /s /f /t 0
+Ubuntu: crontab -e → 0 23 * * * /sbin/shutdown -h now
+```
+
+
+---
