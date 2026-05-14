@@ -125,3 +125,21 @@ foreach ($User in $Users) {
 Active Directory DNS is installed and configured automatically during the domain
 promotion. The domain controller serves as the authoritative DNS server for
 `contoso.local`.
+
+### Verify DNS is Working
+
+```powershell
+# Verify the DC can resolve its own hostname
+Resolve-DnsName "dc01.contoso.local"
+
+# Verify forward lookup zone exists
+Get-DnsServerZone | Where-Object { $_.ZoneName -eq "contoso.local" }
+
+# Verify reverse lookup zone
+Get-DnsServerZone | Where-Object { $_.IsReverseLookupZone -eq $true }
+
+# Test that a domain client can be registered
+# (Run from win10-client after domain join)
+# ipconfig /registerdns
+# Resolve-DnsName "win10-client.contoso.local"
+```
