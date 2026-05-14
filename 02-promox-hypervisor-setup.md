@@ -105,3 +105,45 @@ Proxmox Web UI → Node → local → ISO Images → Upload
 
 ---
 
+## Creating Virtual Machines
+
+### General VM creation process
+
+```
+Proxmox Web UI → Create VM
+
+General:
+  Node : pve
+  VM ID: [auto-assigned or set manually, e.g., 100, 101, 102...]
+  Name : [e.g., dc01, pfsense, ubuntu-admin]
+
+OS:
+  Storage : local
+  ISO     : [select uploaded ISO]
+
+System:
+  BIOS    : SeaBIOS (for most VMs)
+              OVMF (UEFI) for VMs requiring Secure Boot (e.g., modern Windows 11)
+  Machine : q35 (recommended for newer OSes)
+
+Disks:
+  Bus     : VirtIO SCSI (best performance on Linux)
+             SATA (more compatible for Windows if VirtIO drivers not pre-installed)
+  Size    : [as per VM inventory above]
+
+CPU:
+  Sockets : 1
+  Cores   : [as per VM inventory above]
+  Type    : host (passes through CPU flags — required for nested virtualisation)
+
+Memory:
+  MiB     : [as per VM inventory above — e.g., 4096 for dc01]
+  Ballooning: Disable for Windows VMs (ballooning causes instability on Windows)
+
+Network:
+  Bridge  : vmbr0
+  VLAN Tag: [leave blank for pfSense — pfSense manages its own VLAN tags]
+             [set to VLAN ID for other VMs — e.g., 10 for dc01, 99 for splunk-server]
+  Model   : VirtIO (best performance)
+```
+
