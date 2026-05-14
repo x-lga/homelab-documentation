@@ -101,6 +101,14 @@ Start win10-client or kali when specifically needed.
 
 ---
 
+## Network Architecture Summary
+
+| VLAN | Name | Subnet | Gateway | Purpose |
+|------|------|--------|---------|---------|
+| VLAN 10 | Work | 10.10.10.0/24 | 10.10.10.1 | Corporate endpoints — dc01, win10-client, ubuntu-admin |
+| VLAN 20 | Guest / Isolated | 10.10.20.0/24 | 10.10.20.1 | Kali Linux lab — isolated from corporate |
+| VLAN 99 | Management | 10.10.99.0/24 | 10.10.99.1 | Splunk server — accessible only from admin IPs |
+
 
 
 
