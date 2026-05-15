@@ -163,3 +163,38 @@ Resolve-DnsName "splunk.contoso.local"
 
 DHCP is configured to serve the VLAN 10 (Work) segment. VLAN 20 and 99 use
 pfSense's built-in DHCP server for their own scopes.
+
+### Install and Configure DHCP
+
+```powershell
+# Install DHCP role
+Install-WindowsFeature DHCP -IncludeManagementTools
+
+# Authorise the DHCP server in Active Directory
+# (without authorisation, the scope is active but will not serve leases in a domain)
+Add-DhcpServerInDC -DnsName "dc01.contoso.local" -IPAddress 10.10.10.10
+
+# Create scope for VLAN 10 (Work segment)
+Add-DhcpServerv4Scope `
+    -Name          "VLAN10-Work" `
+    -StartRange    "10.10.10.100" `
+    -EndRange      "10.10.10.200" `
+    -SubnetMask    "255.255.255.0" `
+    -LeaseDuration "08:00:00" `
+    -State         "Active"
+
+# Set scope options: default gateway, DNS server, domain name
+Set-DhcpServerv4OptionValue `
+    -ScopeId   "10.10.10.0" `
+    -Router    "10.10.10.1" `
+    -DnsServer "10.10.10.10" `
+    -DnsDomain "contoso.local"
+
+# Exclude the static IP range (first 99 addresses reserved for static assignments)
+Add-DhcpServerv4ExclusionRange `
+    -ScopeId  "10.10.10.0" `
+    -StartRange "10.10.10.1" `
+    -EndRange   "10.10.10.99"
+
+Write-Host "DHCP configured for VLAN 10 (10.10.10.100–200)"
+```
