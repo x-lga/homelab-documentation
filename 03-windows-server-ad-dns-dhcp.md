@@ -158,3 +158,8 @@ Resolve-DnsName "splunk.contoso.local"
 ```
 
 ---
+
+## DHCP Configuration
+
+DHCP is configured to serve the VLAN 10 (Work) segment. VLAN 20 and 99 use
+pfSense's built-in DHCP server for their own scopes.
