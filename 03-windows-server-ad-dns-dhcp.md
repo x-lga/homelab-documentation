@@ -280,3 +280,21 @@ Move-ADObject -Identity $Computer.DistinguishedName -TargetPath "OU=Workstations
 ```
 
 ---
+
+## GPO Testing and Verification
+
+```powershell
+# Force Group Policy refresh on the client (run on win10-client)
+gpupdate /force
+
+# View applied GPOs (run on win10-client)
+gpresult /h C:\Temp\gpresult.html
+Start-Process C:\Temp\gpresult.html
+
+# View detailed policy application log
+Get-EventLog -LogName "System" -Source "Microsoft-Windows-GroupPolicy" -Newest 20 |
+    Select-Object TimeGenerated, Message
+```
+
+
+---
