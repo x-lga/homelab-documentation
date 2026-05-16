@@ -210,3 +210,32 @@ Get-DhcpServerv4Lease -ScopeId "10.10.10.0" | Select-Object IPAddress, ClientId,
 ```
 
 ---
+
+## Group Policy Configuration
+
+Group Policy Objects enforce security and configuration baselines across all
+domain-joined machines.
+
+### Password Policy GPO
+
+```powershell
+# Create and link a password policy GPO at the domain level
+$PasswordGPO = New-GPO -Name "Security-Password-Policy"
+New-GPLink -Name "Security-Password-Policy" -Target "DC=contoso,DC=local"
+
+# Configure password policy settings via GPMC
+# (These must be set via GUI or ADMX — PowerShell GPO cmdlets do not cover all policy areas)
+# Open Group Policy Management Console (gpmc.msc)
+# Edit Security-Password-Policy:
+# Computer Configuration → Policies → Windows Settings → Security Settings →
+#   Account Policies → Password Policy:
+#     Minimum password length: 10
+#     Password must meet complexity: Enabled
+#     Maximum password age: 90 days
+#     Minimum password age: 1 day
+#     Password history: 12
+#   Account Policies → Account Lockout Policy:
+#     Account lockout threshold: 5
+#     Lockout duration: 30 minutes
+#     Reset lockout counter after: 30 minutes
+```
