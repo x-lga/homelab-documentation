@@ -196,5 +196,17 @@ Add-DhcpServerv4ExclusionRange `
     -StartRange "10.10.10.1" `
     -EndRange   "10.10.10.99"
 
-Write-Host "DHCP configured for VLAN 10 (10.10.10.100–200)"
+Write-Host "DHCP configured for VLAN 10 (10.10.10.100-200)"
 ```
+
+### Verify DHCP
+
+```powershell
+# Check scope is active
+Get-DhcpServerv4Scope | Select-Object Name, ScopeId, State, StartRange, EndRange
+
+# View active leases (after a client connects)
+Get-DhcpServerv4Lease -ScopeId "10.10.10.0" | Select-Object IPAddress, ClientId, HostName, LeaseExpiryTime
+```
+
+---
