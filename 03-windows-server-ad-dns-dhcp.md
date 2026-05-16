@@ -256,3 +256,27 @@ New-GPLink -Name "Workstation-Security-Baseline" -Target "OU=Workstations,DC=con
 #   Audit account logon events: Success, Failure
 #   Audit object access: Failure
 ```
+
+### Join win10-client to the Domain
+
+```powershell
+# Run on win10-client (10.10.10.50 with DNS pointing to 10.10.10.10)
+# Set DNS to domain controller first
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses "10.10.10.10"
+
+# Join the domain
+Add-Computer `
+    -DomainName "contoso.local" `
+    -Credential (Get-Credential "CONTOSO\Administrator") `
+    -Restart
+```
+
+After restart, win10-client will be in the Computers container in AD.
+Move it to the Workstations OU:
+```powershell
+# Run on dc01
+$Computer = Get-ADComputer -Identity "WIN10-CLIENT"
+Move-ADObject -Identity $Computer.DistinguishedName -TargetPath "OU=Workstations,DC=contoso,DC=local"
+```
+
+---
