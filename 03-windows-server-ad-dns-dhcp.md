@@ -239,3 +239,20 @@ New-GPLink -Name "Security-Password-Policy" -Target "DC=contoso,DC=local"
 #     Lockout duration: 30 minutes
 #     Reset lockout counter after: 30 minutes
 ```
+
+### Workstation Security GPO
+
+```powershell
+$WSSecGPO = New-GPO -Name "Workstation-Security-Baseline"
+New-GPLink -Name "Workstation-Security-Baseline" -Target "OU=Workstations,DC=contoso,DC=local"
+
+# Key settings to configure via GPMC:
+# Computer Configuration → Administrative Templates → System → Removable Storage:
+#   All Removable Storage classes: Deny all access → Enabled (blocks USB drives)
+# Computer Configuration → Administrative Templates → Control Panel:
+#   Prohibit access to Control Panel and PC settings → Enabled
+# Computer Configuration → Windows Settings → Security Settings → Local Policies → Audit Policy:
+#   Audit logon events: Success, Failure
+#   Audit account logon events: Success, Failure
+#   Audit object access: Failure
+```
