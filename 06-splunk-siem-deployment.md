@@ -23,3 +23,37 @@ cannot browse to the Splunk dashboard, but the IT admin on dc01 can.
 
 ---
 
+## Splunk Free Installation on Ubuntu 22.04
+
+```bash
+# On splunk-server (connect via Bastion or console)
+
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Download Splunk Free (register at splunk.com — free download)
+# Copy the download URL from your browser after accepting the licence
+wget -O splunk.deb 'https://download.splunk.com/products/splunk/releases/9.x.x/linux/splunk-9.x.x-linux-2.6-amd64.deb'
+
+# Install
+sudo dpkg -i splunk.deb
+
+# Start Splunk and accept licence
+sudo /opt/splunk/bin/splunk start --accept-license --answer-yes
+
+# Set admin password when prompted (save this — you need it to access the web UI)
+
+# Configure Splunk to start on boot
+sudo /opt/splunk/bin/splunk enable boot-start
+
+# Open firewall for Splunk web UI (port 8000) and receiving (port 9997)
+sudo ufw allow from 10.10.10.0/24 to any port 8000
+sudo ufw allow from 10.10.10.0/24 to any port 9997
+sudo ufw allow from 10.10.99.0/24 to any port 8000
+sudo ufw allow from 10.10.99.0/24 to any port 9997
+```
+
+Access Splunk web: `http://10.10.99.10:8000`
+
+---
+
