@@ -136,3 +136,18 @@ of the traffic). Rules are evaluated top-to-bottom - first match wins.
 | 4 | Block | Any | GUEST net | 10.10.99.0/24 | Any | No access to management |
 | 5 | Block | Any | GUEST net | GUEST net | Any | No intra-VLAN (IoT isolation) |
 | 6 | Block | Any | GUEST net | Any | Any | Default deny |
+
+
+### VLAN 99 (Management) - Interface MGMT
+
+| Priority | Action | Protocol | Source | Destination | Port | Description |
+|---------|--------|---------|--------|------------|------|-------------|
+| 1 | Allow | Any | MGMT net | Any | Any | Management can reach everything |
+| 2 | Block | Any | Any | MGMT net | Any | All other traffic blocked into MGMT |
+
+**Note on management VLAN access:** The rule above (Block Any → MGMT) applies on
+interfaces other than MGMT. On the MGMT interface itself, Rule 1 allows full egress.
+Access into MGMT from WORK is controlled by the WORK rule (Allow admin IPs only).
+
+---
+
