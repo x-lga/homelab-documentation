@@ -45,6 +45,38 @@ happens regularly in a home lab environment.
 
 ---
 
+## Monitoring Sync Health
+
+```powershell
+# Run on dc01 — check sync status
+Import-Module ADSync
+
+# View sync scheduler state
+Get-ADSyncScheduler | Select-Object SyncCycleEnabled, CurrentlyRunning,
+    NextSyncCycleStartTimeInUTC, NextSyncCyclePolicyType
+
+# View last 5 sync run results
+Get-ADSyncRunProfileResult | Select-Object -Last 5 |
+    Select-Object RunProfileName, RunResult, StartDate, EndDate |
+    Format-Table -AutoSize
+
+# Check for sync errors
+Get-ADSyncConnectorStatistics -ConnectorName "contoso.local" |
+    Select-Object ConnectorName, ExportErrors, ImportErrors
+```
+
+**Force a manual delta sync:**
+```powershell
+Start-ADSyncSyncCycle -PolicyType Delta
+```
+
+**Force a full sync (re-syncs all objects — slower, use when troubleshooting):**
+```powershell
+Start-ADSyncSyncCycle -PolicyType Initial
+```
+
+---
+
 
 
 
