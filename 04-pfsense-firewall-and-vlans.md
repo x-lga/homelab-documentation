@@ -213,4 +213,38 @@ pfSense → Firewall → Rules → WireGuard:
 
 ---
 
+## Verifying VLAN Isolation
+
+Test that VLANs are correctly isolated after configuration:
+
+**Test 1: VLAN 20 cannot reach VLAN 10**
+```bash
+# From kali (VLAN 20 — 10.10.20.10):
+ping 10.10.10.10        # Should FAIL (pfSense blocks VLAN20 → VLAN10)
+ping 10.10.10.1         # Should FAIL (gateway unreachable from VLAN 20 to VLAN 10)
+ping 8.8.8.8            # Should SUCCEED (internet allowed from VLAN 20)
+```
+
+**Test 2: VLAN 10 non-admin cannot reach VLAN 99**
+```powershell
+# From win10-client (VLAN 10 — 10.10.10.50, non-admin IP):
+Test-NetConnection -ComputerName 10.10.99.10 -Port 8000  # Should FAIL
+Test-NetConnection -ComputerName 10.10.10.10 -Port 53    # Should SUCCEED (DNS)
+```
+
+**Test 3: Admin IP can reach VLAN 99**
+```powershell
+# From dc01 (10.10.10.10 - admin IP in VLAN 10):
+Test-NetConnection -ComputerName 10.10.99.10 -Port 8000  # Should SUCCEED (Splunk)
+```
+
+**Test 4: VLAN 20 devices cannot communicate with each other**
+```bash
+# From kali, try to reach another VLAN 20 device:
+# (Add a second device to VLAN 20, e.g., a second Ubuntu VM for testing)
+ping [second VLAN 20 device IP]    # Should FAIL (VLAN 20 → VLAN 20 blocked)
+```
+
+
+---
 
