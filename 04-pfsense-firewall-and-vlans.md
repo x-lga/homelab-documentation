@@ -108,3 +108,8 @@ MGMT interface (VLAN 99):
 ```
 
 ---
+
+## Firewall Rules
+
+Firewall rules in pfSense are configured per interface (the source interface
+of the traffic). Rules are evaluated top-to-bottom - first match wins.
