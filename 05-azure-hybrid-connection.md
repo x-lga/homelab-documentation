@@ -20,3 +20,15 @@ architecture used by most enterprises that have existing on-premises infrastruct
 - Password hashes (with Password Hash Sync enabled)
 - Computer objects (if scope is configured to include them)
 
+**What is NOT synced by default:**
+- Passwords in plaintext (only the hash, and only with PHS enabled)
+- Local admin accounts or built-in accounts like Administrator
+- Contacts and distribution lists (can be configured but not default)
+
+For the full build guide including installation steps, configuration walkthrough,
+sync verification, and hybrid SSO testing - see the dedicated document in the
+azure-hybrid-lab repo: `03-azure-ad-connect-hybrid-sync.md`.
+
+---
+
+
