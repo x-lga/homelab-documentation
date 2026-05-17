@@ -31,4 +31,12 @@ azure-hybrid-lab repo: `03-azure-ad-connect-hybrid-sync.md`.
 
 ---
 
+## Lab-Specific Configuration
+
+**AD Connect installed on:** dc01 (contoso.local domain controller)
+**Sync mode:** Password Hash Synchronisation (PHS)
+**Sync interval:** Every 30 minutes (default)
+**Scope:** OU=Azure-Sync filtered - only users in the Azure-Sync OU are synced
+
+
 
