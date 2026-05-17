@@ -57,3 +57,15 @@ Access Splunk web: `http://10.10.99.10:8000`
 
 ---
 
+## Configure Splunk to Receive Data
+
+```
+Splunk Web UI → Settings → Forwarding and Receiving →
+  Configure Receiving → Add New:
+  Listen on port: 9997
+
+This tells Splunk to accept data from Universal Forwarders on port 9997.
+```
+
+---
+
