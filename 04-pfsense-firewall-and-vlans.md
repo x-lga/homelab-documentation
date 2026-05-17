@@ -18,3 +18,17 @@ traffic must pass through pfSense, which means all inter-VLAN communication
 is subject to firewall rule evaluation.
 
 ---
+
+## Installation and Initial Configuration
+
+1. Download pfSense CE ISO from `pfsense.org/download`
+2. Create pfSense VM in Proxmox (1 CPU, 1 GB RAM, 8 GB disk, no VLAN tag on NIC)
+3. Boot from ISO and follow the installer (accept defaults)
+4. After first boot, assign interfaces:
+   - WAN: em0 (the Proxmox bridge interface)
+   - Note: In this lab, the WAN interface of pfSense connects to the home router
+     via an untagged VLAN (VLAN 1 / native), while VLANs 10, 20, 99 are tagged
+5. Access the pfSense web GUI from the Proxmox console initially, then from a
+   browser once network is configured
+
+---
