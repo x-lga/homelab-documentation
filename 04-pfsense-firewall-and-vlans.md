@@ -125,3 +125,14 @@ of the traffic). Rules are evaluated top-to-bottom - first match wins.
 | 5 | Block | Any | WORK net | 10.10.20.0/24 | Any | Block corporate → isolated |
 | 6 | Block | Any | WORK net | Any | Any | Default deny |
 
+
+### VLAN 20 (Guest / Isolated) - Interface GUEST
+
+| Priority | Action | Protocol | Source | Destination | Port | Description |
+|---------|--------|---------|--------|------------|------|-------------|
+| 1 | Allow | TCP | GUEST net | WAN | 80, 443 | Internet web access only |
+| 2 | Allow | TCP/UDP | GUEST net | 8.8.8.8, 1.1.1.1 | 53 | DNS to public resolvers |
+| 3 | Block | Any | GUEST net | 10.10.10.0/24 | Any | No access to corporate |
+| 4 | Block | Any | GUEST net | 10.10.99.0/24 | Any | No access to management |
+| 5 | Block | Any | GUEST net | GUEST net | Any | No intra-VLAN (IoT isolation) |
+| 6 | Block | Any | GUEST net | Any | Any | Default deny |
