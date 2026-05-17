@@ -113,3 +113,15 @@ MGMT interface (VLAN 99):
 
 Firewall rules in pfSense are configured per interface (the source interface
 of the traffic). Rules are evaluated top-to-bottom - first match wins.
+
+### VLAN 10 (Work) - Interface WORK
+
+| Priority | Action | Protocol | Source | Destination | Port | Description |
+|---------|--------|---------|--------|------------|------|-------------|
+| 1 | Allow | TCP/UDP | WORK net | 10.10.10.10 | 53 | DNS to DC |
+| 2 | Allow | Any | WORK net | 10.10.10.0/24 | Any | Intra-VLAN communication |
+| 3 | Allow | TCP | 10.10.10.10, 10.10.10.20 | 10.10.99.0/24 | Any | Admin IPs to management VLAN |
+| 4 | Allow | Any | WORK net | WAN | Any | Internet access |
+| 5 | Block | Any | WORK net | 10.10.20.0/24 | Any | Block corporate → isolated |
+| 6 | Block | Any | WORK net | Any | Any | Default deny |
+
