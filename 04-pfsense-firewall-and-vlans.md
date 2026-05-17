@@ -86,3 +86,25 @@ Interfaces → MGMT:
 ```
 
 ---
+
+## DHCP Server Configuration
+
+pfSense serves DHCP for VLAN 20 and VLAN 99. VLAN 10 uses the Windows DC.
+
+```
+pfSense Web UI → Services → DHCP Server
+
+GUEST interface (VLAN 20):
+  Enable        : Checked
+  Range         : 10.10.20.100 – 10.10.20.200
+  DNS servers   : 8.8.8.8 (public DNS - no access to internal DNS by design)
+  Default gateway: 10.10.20.1
+
+MGMT interface (VLAN 99):
+  Enable        : Checked
+  Range         : 10.10.99.50 – 10.10.99.100
+  DNS servers   : 10.10.10.10 (internal DNS - management segment needs AD resolution)
+  Default gateway: 10.10.99.1
+```
+
+---
