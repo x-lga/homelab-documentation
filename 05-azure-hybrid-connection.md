@@ -70,12 +70,38 @@ Get-ADSyncConnectorStatistics -ConnectorName "contoso.local" |
 Start-ADSyncSyncCycle -PolicyType Delta
 ```
 
-**Force a full sync (re-syncs all objects — slower, use when troubleshooting):**
+**Force a full sync (re-syncs all objects - slower, use when troubleshooting):**
 ```powershell
 Start-ADSyncSyncCycle -PolicyType Initial
 ```
 
 ---
+
+## What to Check When Sync Stops Working
+
+1. **Check the Synchronisation Service Manager:**
+   Start → Microsoft Entra Connect → Synchronization Service →
+   Operations tab — look for errors
+
+2. **Check connectivity from dc01 to Azure:**
+   ```powershell
+   Test-NetConnection -ComputerName "login.microsoftonline.com" -Port 443
+   ```
+   If this fails: pfSense may be blocking - check firewall logs
+
+3. **Check the ADSync service is running:**
+   ```powershell
+   Get-Service ADSync | Select-Object Name, Status
+   ```
+
+4. **Check AD Connect Health in Azure Portal:**
+   Azure Portal → Entra ID → Azure AD Connect →
+   AD Connect Health → Sync Services
+
+
+---
+
+
 
 
 
