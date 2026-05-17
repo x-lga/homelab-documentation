@@ -151,3 +151,66 @@ Access into MGMT from WORK is controlled by the WORK rule (Allow admin IPs only)
 
 ---
 
+## WireGuard VPN Configuration
+
+WireGuard provides secure remote admin access to the lab without exposing any
+management interface to the public internet.
+
+```
+pfSense Web UI → VPN → WireGuard → Add Tunnel
+
+Tunnel configuration:
+  Listen Port    : 51820
+  Interface Keys : Generate (click Generate to create server key pair)
+  Interface Addresses: 10.10.200.1/24
+
+Peer (remote admin machine):
+  Description    : Remote-Admin-Laptop
+  Public Key     : [generate on client machine and paste here]
+  Allowed IPs    : 10.10.200.2/32
+  Endpoint       : [leave blank if client is behind NAT]
+```
+
+**Generate client key pair (on the admin machine):**
+```bash
+# Install WireGuard on Linux client
+sudo apt install wireguard
+
+# Generate key pair
+wg genkey | tee privatekey | wg pubkey > publickey
+cat publickey    # paste this into pfSense as the peer public key
+cat privatekey   # use this in the client config file
+```
+
+**Client configuration file (`/etc/wireguard/wg0.conf`):**
+```ini
+[Interface]
+PrivateKey = [client private key]
+Address    = 10.10.200.2/32
+DNS        = 10.10.10.10
+
+[Peer]
+PublicKey  = [pfSense server public key - from pfSense WireGuard settings]
+AllowedIPs = 10.10.10.0/24, 10.10.99.0/24
+Endpoint   = [your home public IP]:51820
+PersistentKeepalive = 25
+```
+
+**Start the VPN:**
+```bash
+sudo wg-quick up wg0
+# Verify connection
+sudo wg show
+```
+
+**pfSense firewall rule for WireGuard interface:**
+```
+pfSense → Firewall → Rules → WireGuard:
+  Allow: Source 10.10.200.0/24 → Destination 10.10.10.0/24 (VLAN 10 resources)
+  Allow: Source 10.10.200.0/24 → Destination 10.10.99.0/24 (Management)
+  Block: Source 10.10.200.0/24 → Destination 10.10.20.0/24 (No access to isolated)
+```
+
+---
+
+
