@@ -14,4 +14,9 @@ domain to Microsoft Entra ID (formerly Azure Active Directory) via Azure AD Conn
 This enables single sign-on across on-premises and cloud resources, and mirrors the
 architecture used by most enterprises that have existing on-premises infrastructure.
 
+**What is synced:**
+- User accounts (with their attributes - display name, department, title, email)
+- Groups
+- Password hashes (with Password Hash Sync enabled)
+- Computer objects (if scope is configured to include them)
 
