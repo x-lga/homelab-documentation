@@ -38,5 +38,13 @@ azure-hybrid-lab repo: `03-azure-ad-connect-hybrid-sync.md`.
 **Sync interval:** Every 30 minutes (default)
 **Scope:** OU=Azure-Sync filtered - only users in the Azure-Sync OU are synced
 
+**Why PHS was chosen:** See `08-design-decisions-and-justifications.md` in the
+azure-hybrid-lab repo for the full explanation. Short version: PHS allows cloud
+authentication to work even when the Proxmox lab host is powered down, which
+happens regularly in a home lab environment.
+
+---
+
+
 
 
