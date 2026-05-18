@@ -157,4 +157,13 @@ index=windows_security EventCode=4740 earliest=-24h
 | stats count
 ```
 
+**Panel 3 - Top Failed Logon Accounts (Bar Chart):**
+```spl
+index=windows_security EventCode=4625 earliest=-24h
+| stats count by Account_Name
+| sort -count
+| head 10
+```
+
+
 
