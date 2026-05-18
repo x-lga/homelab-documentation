@@ -134,3 +134,21 @@ If no results after 5 minutes, check:
 
 ---
 
+## Create the Security Overview Dashboard
+
+```
+Splunk Web UI → Search & Reporting → Dashboards → Create New Dashboard
+
+Title   : Security Overview
+Layout  : Grid
+```
+
+Add panels with these SPL queries:
+
+**Panel 1 — Failed Logon Count (Single Value KPI):**
+```spl
+index=windows_security EventCode=4625 earliest=-24h
+| stats count
+```
+
+
