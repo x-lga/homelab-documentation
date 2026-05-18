@@ -117,3 +117,20 @@ Restart-Service SplunkForwarder
 
 ---
 
+## Verify Data Is Arriving in Splunk
+
+```
+Splunk Web UI → Search & Reporting → New Search:
+index=windows_security earliest=-15m
+```
+
+If results appear within 1–2 minutes of the forwarder restart: the pipeline is working.
+
+If no results after 5 minutes, check:
+1. SplunkForwarder service is running on dc01
+2. Port 9997 is reachable: `Test-NetConnection -ComputerName 10.10.99.10 -Port 9997`
+3. pfSense is not blocking dc01 (VLAN 10) from reaching splunk-server (VLAN 99)
+   on port 9997 - the WORK interface rules must allow this specifically
+
+---
+
