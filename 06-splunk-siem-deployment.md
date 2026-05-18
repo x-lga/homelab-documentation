@@ -84,3 +84,36 @@ This tells Splunk to accept data from Universal Forwarders on port 9997.
 Get-Service SplunkForwarder | Select-Object Name, Status
 ```
 
+### Configure Inputs on the Forwarder
+
+Create `inputs.conf` at:
+`C:\Program Files\SplunkUniversalForwarder\etc\system\local\inputs.conf`
+
+```ini
+# Windows Security Event Log — authentication events, logon/logoff
+[WinEventLog://Security]
+index = windows_security
+disabled = 0
+start_from = oldest
+current_only = 0
+checkpointInterval = 5
+renderXml = false
+
+# Windows System Event Log — service starts/stops, system events
+[WinEventLog://System]
+index = windows_system
+disabled = 0
+
+# Windows Application Event Log — application errors and information
+[WinEventLog://Application]
+index = windows_app
+disabled = 0
+```
+
+Restart the forwarder service after creating this file:
+```powershell
+Restart-Service SplunkForwarder
+```
+
+---
+
