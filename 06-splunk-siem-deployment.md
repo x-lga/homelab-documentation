@@ -172,6 +172,23 @@ index=windows_security (EventCode=4624 OR EventCode=4625) earliest=-24h
 | timechart span=1h count by event_type
 ```
 
+**Panel 5 - Suspicious PowerShell Execution (Table):**
+```spl
+index=windows_security EventCode=4688 earliest=-24h
+| where Process_Name like "%powershell%"
+       AND (Process_Command_Line like "%IEX%"
+            OR Process_Command_Line like "%DownloadString%"
+            OR Process_Command_Line like "%EncodedCommand%")
+| table _time, Creator_Subject_User_Name, Process_Command_Line
+| sort -_time
+```
+
+Set dashboard auto-refresh: 5 minutes.
+
+
+---
+
+
 
 
 
