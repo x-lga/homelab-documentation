@@ -165,5 +165,13 @@ index=windows_security EventCode=4625 earliest=-24h
 | head 10
 ```
 
+**Panel 4 - Logon Activity Over Time (Line Chart):**
+```spl
+index=windows_security (EventCode=4624 OR EventCode=4625) earliest=-24h
+| eval event_type=if(EventCode=4624, "Success", "Failure")
+| timechart span=1h count by event_type
+```
+
+
 
 
