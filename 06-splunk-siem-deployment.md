@@ -69,3 +69,18 @@ This tells Splunk to accept data from Universal Forwarders on port 9997.
 
 ---
 
+## Install Splunk Universal Forwarder on dc01
+
+```powershell
+# On dc01 (Windows Server 2022)
+# Download Splunk Universal Forwarder (splunk.com — separate download from Splunk Free)
+# Run the installer as Administrator
+
+# During installer:
+# Deployment server: leave blank (standalone setup)
+# Receiving indexer: 10.10.99.10 : 9997
+
+# Verify forwarder is running
+Get-Service SplunkForwarder | Select-Object Name, Status
+```
+
