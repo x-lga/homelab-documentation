@@ -369,3 +369,10 @@ verify SYSVOL and AD replication health after any rollback.
 
 ---
 
+## Issue 7: Azure VM Could Not Reach On-Premises Resources via AD Connect Sync
+
+**Symptom:**
+After setting up the Azure hybrid lab (azure-hybrid-lab repo), a VM deployed in
+Azure (vm-win-server at 10.20.1.4) could not resolve `dc01.contoso.local` by name,
+even though AD Connect was syncing users successfully from contoso.local to Entra ID.
+
