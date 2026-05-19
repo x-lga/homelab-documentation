@@ -175,3 +175,8 @@ and encountered constantly in enterprise environments.
 
 ---
 
+## Issue 4: Splunk Universal Forwarder Not Sending Events
+
+**Symptom:**
+After installing the Splunk Universal Forwarder on dc01 and configuring inputs.conf,
+no events appeared in Splunk after 15 minutes.
