@@ -78,3 +78,38 @@ Test-NetConnection -ComputerName "8.8.8.8" -Port 443
 
 General HTTPS worked but specific Microsoft hostnames were failing. This was a DNS
 issue — the domains were resolving but the connections were being blocked.
+
+
+**Checked pfSense firewall logs:**
+```
+pfSense Web UI → Status → System Logs → Firewall
+Filter by: source = 10.10.10.10 (dc01 IP)
+```
+
+Found multiple blocked connections from 10.10.10.10 to `login.microsoftonline.com`
+and `account.activedirectory.windowsazure.com`. The pfSense default deny rule was
+blocking them — the WORK interface rule did not explicitly allow traffic to these
+specific destinations.
+
+**Root cause:**
+The VLAN 10 (WORK) firewall rule "Allow WORK net → WAN" was configured to allow
+all traffic to WAN, but I had accidentally created a more specific deny rule above
+it for a category of traffic that matched Microsoft's OAuth endpoints. The more
+specific deny rule was evaluated first.
+
+**Fix:**
+```
+pfSense Web UI → Firewall → Rules → WORK interface
+Identified the overly-broad deny rule
+Deleted it (after confirming it was not needed for any other purpose)
+```
+
+After rule cleanup, AD Connect sync completed within 5 minutes.
+
+**Lesson learned:**
+pfSense evaluates rules top-to-bottom — first match wins. A deny rule placed above
+a broad allow rule will block matching traffic even if the allow rule would otherwise
+permit it. Always review the complete rule list when debugging blocked traffic,
+not just the allow rules.
+
+---
