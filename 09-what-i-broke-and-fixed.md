@@ -431,3 +431,16 @@ with the GUEST interface rules, Kali could ping 10.10.20.1 (the pfSense VLAN 20
 gateway) but could not ping 8.8.8.8 or access any website.
 
 
+**Investigation:**
+```bash
+# On kali
+ping 10.10.20.1    # Succeeded — gateway reachable
+ping 8.8.8.8       # Request timeout — internet not reachable
+ip route show
+# default via 10.10.20.1 dev eth0 — route exists
+```
+
+The default route pointed at the gateway and the gateway was reachable, but
+traffic was not making it out to the internet.
+
+
