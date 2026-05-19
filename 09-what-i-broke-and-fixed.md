@@ -443,4 +443,53 @@ ip route show
 The default route pointed at the gateway and the gateway was reachable, but
 traffic was not making it out to the internet.
 
+**Checked pfSense firewall logs:**
+```
+pfSense Web UI → Status → System Logs → Firewall
+```
+
+Found: Blocked traffic from 10.10.20.10 (Kali) to 8.8.8.8:443 - "no states match".
+The traffic was being blocked by the firewall but the reason showed "no states" rather
+than a specific rule name - which indicates a stateful tracking issue.
+
+**Found the actual issue:**
+The GUEST interface outbound NAT rule was missing. pfSense uses NAT (Network Address
+Translation) to allow private IP addresses to reach the internet using the WAN's
+public IP. By default, pfSense creates automatic outbound NAT rules for each
+interface, but the VLAN 20 GUEST interface had been created manually after the
+initial setup, and the automatic outbound NAT rule for it had not been created.
+
+**Fix:**
+```
+pfSense Web UI → Firewall → NAT → Outbound
+
+Verify: Outbound NAT Mode = Automatic Outbound NAT (recommended)
+If set to Manual: add a rule:
+  Interface    : WAN
+  Source       : 10.10.20.0/24
+  Translation  : WAN address
+  Description  : VLAN20 Guest outbound NAT
+  → Save → Apply Changes
+```
+
+After adding the NAT rule, Kali immediately gained internet access:
+```bash
+ping 8.8.8.8       # Succeeded
+curl https://google.com    # Returned HTTP 200
+```
+
+**Lesson learned:**
+Network connectivity has multiple layers even in a simple firewall setup:
+1. Layer 3 routing (does the routing table have a path to the destination?)
+2. Firewall rules (are rules allowing the traffic to pass?)
+3. NAT (is there a translation rule allowing the private IP to egress via the WAN?)
+
+All three must be correct. The routing was correct (default via gateway). A firewall
+allow rule existed. But the NAT translation was missing - meaning packets reached
+the internet but had a private source IP that the internet could not route back to.
+This is a foundational NAT concept covered in CompTIA Network+.
+
+
+---
+
 
