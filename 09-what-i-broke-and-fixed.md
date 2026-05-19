@@ -389,3 +389,37 @@ nslookup dc01.contoso.local 168.63.129.16   # Azure's internal DNS
 Azure DNS (168.63.129.16) has no knowledge of the `contoso.local` domain — it is
 a private .local domain not registered anywhere in Azure DNS.
 
+**Root cause:**
+AD Connect syncs identity objects (users, groups) from on-premises AD to Entra ID
+but does NOT extend DNS resolution. The Azure VNet uses Azure-provided DNS by default,
+which can only resolve Azure-native hostnames and public domains. It has no way to
+resolve `contoso.local` names because there is no DNS delegation or conditional
+forwarder pointing at the on-premises DC.
+
+**Why this was a misunderstanding:**
+AD Connect creates a hybrid *identity* — users can authenticate with their on-premises
+credentials to cloud services. It does not create hybrid *name resolution* — Azure VMs
+cannot resolve on-premises DNS names unless explicitly configured to use the on-premises
+DNS server.
+
+**Fix:**
+Changed the Azure VNet DNS settings to use the on-premises DC as the primary DNS server:
+```
+Azure Portal → Virtual Networks → vnet-hybrid-lab → DNS Servers →
+  Custom:
+    Primary DNS: 192.168.10.10  (the Proxmox host IP of dc01, or public IP if tunnelled)
+```
+
+Note: For this to work, the Azure VNet needs to be able to reach the on-premises DNS
+server. In this lab, that requires either a VPN or exposing the DC on a public IP
+(not recommended for production). For the lab, an Azure Bastion setup with the DC
+accessible via public IP on a non-standard port was used for testing.
+
+**Lesson learned:**
+AD Connect is an identity synchronisation tool, not a network extension tool.
+Hybrid DNS requires separate configuration - a VPN or ExpressRoute connection
+between Azure and on-premises, with DNS forwarding configured on both sides.
+This is covered in AZ-104's "Implement Virtual Networking" module.
+
+---
+
