@@ -237,4 +237,20 @@ but it is easy to miss the outputs configuration when focused on inputs.
 **Symptom:**
 A Nessus scan configured with targets 10.10.10.10 and 10.10.10.50 completed
 in 30 seconds with zero findings - not even informational results. A correctly
-running scan against Windows hosts should produce at least 50–100 findings.
+running scan against Windows hosts should produce at least 50-100 findings.
+
+**Investigation:**
+The scan completed instantly, which was suspicious. A real network scan
+takes several minutes minimum. The scan log showed "No hosts found."
+
+```bash
+# From ubuntu-admin (the Nessus host — 10.10.10.20)
+# Test if targets are reachable
+ping -c 4 10.10.10.10    # Succeeded
+nmap -p 22,80,443,3389 10.10.10.10   # All ports filtered — stealth scan blocked?
+```
+
+Ports appeared filtered even though dc01 was reachable. The issue was that the
+Nessus credentialed scan was failing silently - uncredentialed scans show as
+"complete" with minimal findings when authentication fails.
+
