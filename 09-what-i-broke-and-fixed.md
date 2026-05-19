@@ -308,3 +308,36 @@ After joining win10-client to contoso.local and running `gpupdate /force`, the
 command returned success but `gpresult /r` showed "The user does not have RSoP
 data" and no policies were listed as applied.
 
+
+**Investigation:**
+```cmd
+# On win10-client
+gpresult /r
+# Result: ERROR: The user does not have RSoP data.
+
+# Check event log for Group Policy processing errors
+eventvwr.msc → Applications and Services Logs → Microsoft → Windows → Group Policy → Operational
+# Found: Event 1030 — "Windows could not access the file gpt.ini"
+# for domain controller dc01.contoso.local
+```
+
+The Group Policy engine could not access the SYSVOL share on the domain controller.
+
+```cmd
+# Test SYSVOL accessibility from win10-client
+net use \\dc01.contoso.local\SYSVOL
+# Error: "System error 5 — Access Denied"
+```
+
+SMB access to the domain controller's SYSVOL share was being denied.
+
+```powershell
+# On dc01 — check SYSVOL share permissions
+net share SYSVOL
+# Share exists and appears correct
+
+# Check NTFS permissions on SYSVOL
+icacls C:\Windows\SYSVOL
+# Found: Domain Users were missing Read permission on a subfolder
+```
+
