@@ -341,3 +341,31 @@ icacls C:\Windows\SYSVOL
 # Found: Domain Users were missing Read permission on a subfolder
 ```
 
+**Root cause:**
+During an earlier snapshot rollback, the NTFS permissions on a subfolder of SYSVOL
+had been reverted to a state where Domain Users could not read it. The share existed
+and the share permissions were correct, but the underlying NTFS permissions blocked access.
+
+**Fix:**
+```powershell
+# On dc01 — reset SYSVOL permissions to defaults
+# Run as Domain Admin
+icacls C:\Windows\SYSVOL /reset /T /C /Q
+
+# Restart the Netlogon service to rebuild SYSVOL
+Restart-Service Netlogon
+```
+
+After the permission reset and Netlogon restart, `gpupdate /force` on win10-client
+applied all policies correctly within 2 minutes.
+
+**Lesson learned:**
+Snapshot rollbacks in Proxmox revert the entire VM disk state — including NTFS
+permissions. If you roll back a domain controller, be aware that permissions,
+replication state, and AD tombstones may be in inconsistent states. Snapshot
+rollbacks of DCs should be avoided in production for this reason (they can cause
+USN rollback issues). In the lab, they are acceptable for quick resets, but
+verify SYSVOL and AD replication health after any rollback.
+
+---
+
