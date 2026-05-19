@@ -423,3 +423,11 @@ This is covered in AZ-104's "Implement Virtual Networking" module.
 
 ---
 
+## Issue 8: Kali Linux Could Not Access the Internet After Being Placed on VLAN 20
+
+**Symptom:**
+After configuring Kali's VM to use VLAN 20 in Proxmox and configuring pfSense
+with the GUEST interface rules, Kali could ping 10.10.20.1 (the pfSense VLAN 20
+gateway) but could not ping 8.8.8.8 or access any website.
+
+
