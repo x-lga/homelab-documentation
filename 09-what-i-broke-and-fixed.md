@@ -107,7 +107,7 @@ Deleted it (after confirming it was not needed for any other purpose)
 After rule cleanup, AD Connect sync completed within 5 minutes.
 
 **Lesson learned:**
-pfSense evaluates rules top-to-bottom — first match wins. A deny rule placed above
+pfSense evaluates rules top-to-bottom - first match wins. A deny rule placed above
 a broad allow rule will block matching traffic even if the allow rule would otherwise
 permit it. Always review the complete rule list when debugging blocked traffic,
 not just the allow rules.
@@ -119,3 +119,26 @@ not just the allow rules.
 **Symptom:**
 win10-client was getting an APIPA address (169.254.x.x) instead of an address from
 the 10.10.10.100–200 range. It could not reach the domain controller.
+
+**Investigation:**
+```cmd
+# From win10-client
+ipconfig /all
+# IPv4 Address: 169.254.x.x (APIPA — DHCP client gave up)
+# Default Gateway: none
+ipconfig /release
+ipconfig /renew
+# Error: "Unable to contact your DHCP server"
+```
+
+```powershell
+# From dc01 — check DHCP server status
+Get-Service DHCPServer | Select-Object Name, Status
+# Status: Running
+
+Get-DhcpServerv4Scope | Select-Object Name, State
+# State: Active — scope appears correct
+```
+
+DHCP was running and the scope was active. The lease requests were not reaching dc01.
+
