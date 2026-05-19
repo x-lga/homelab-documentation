@@ -142,3 +142,36 @@ Get-DhcpServerv4Scope | Select-Object Name, State
 
 DHCP was running and the scope was active. The lease requests were not reaching dc01.
 
+**Checked pfSense DHCP relay configuration:**
+The VLAN 10 interface on pfSense was NOT configured to relay DHCP broadcasts to
+the Windows DHCP server. pfSense was receiving the DHCP broadcast from win10-client
+but had no instructions to forward it to dc01. pfSense's own DHCP server was
+disabled for VLAN 10 (correct), but without a DHCP relay, the broadcasts went nowhere.
+
+**Root cause:**
+Missing DHCP relay configuration on pfSense WORK interface. The Windows DC serves
+DHCP for VLAN 10, but pfSense (as the default gateway for VLAN 10) must relay DHCP
+broadcasts from clients to the DC. Without the relay, clients cannot reach the DHCP
+server on a different subnet.
+
+**Fix:**
+```
+pfSense Web UI → Services → DHCP Relay
+  Enable       : Checked
+  Interface(s) : WORK (VLAN 10)
+  Destination  : 10.10.10.10 (dc01 — the Windows DHCP server)
+  → Save → Apply
+```
+
+After enabling DHCP relay, win10-client received a lease from the correct range
+within 30 seconds.
+
+**Lesson learned:**
+In a routed network (which is what VLANs with a router/firewall create), DHCP
+broadcasts do not cross subnet boundaries by default. Whenever a DHCP server is on
+a different subnet from its clients, a DHCP relay agent is required on the gateway
+device. This is a fundamental networking concept covered in CompTIA Network+
+and encountered constantly in enterprise environments.
+
+---
+
