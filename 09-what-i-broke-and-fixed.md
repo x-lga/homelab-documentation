@@ -65,3 +65,16 @@ to find services running with non-automatic startup - these will not survive a r
 After configuring pfSense as the default gateway for VLAN 10 (replacing the home
 router), Azure AD Connect stopped syncing. The Synchronisation Service Manager
 showed the Azure connector in a "stopped-connectivity" state.
+
+
+**Investigation:**
+```powershell
+# On dc01
+Test-NetConnection -ComputerName "login.microsoftonline.com" -Port 443
+# TcpTestSucceeded: False — Azure endpoints unreachable
+Test-NetConnection -ComputerName "8.8.8.8" -Port 443
+# TcpTestSucceeded: True — general internet HTTPS works
+```
+
+General HTTPS worked but specific Microsoft hostnames were failing. This was a DNS
+issue — the domains were resolving but the connections were being blocked.
