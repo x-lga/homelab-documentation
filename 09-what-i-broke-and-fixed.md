@@ -231,3 +231,10 @@ be present and correct for data to flow. The Splunk documentation covers both
 but it is easy to miss the outputs configuration when focused on inputs.
 
 ---
+
+## Issue 5: Nessus Scan Returning Zero Results on VLAN 10 Targets
+
+**Symptom:**
+A Nessus scan configured with targets 10.10.10.10 and 10.10.10.50 completed
+in 30 seconds with zero findings - not even informational results. A correctly
+running scan against Windows hosts should produce at least 50–100 findings.
