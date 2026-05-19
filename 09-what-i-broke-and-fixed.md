@@ -376,3 +376,16 @@ After setting up the Azure hybrid lab (azure-hybrid-lab repo), a VM deployed in
 Azure (vm-win-server at 10.20.1.4) could not resolve `dc01.contoso.local` by name,
 even though AD Connect was syncing users successfully from contoso.local to Entra ID.
 
+**Investigation:**
+```powershell
+# On vm-win-server (Azure VM)
+Resolve-DnsName "dc01.contoso.local"
+# Error: DNS name does not exist
+
+nslookup dc01.contoso.local 168.63.129.16   # Azure's internal DNS
+# Server: can't find dc01.contoso.local: Non-existent domain
+```
+
+Azure DNS (168.63.129.16) has no knowledge of the `contoso.local` domain — it is
+a private .local domain not registered anywhere in Azure DNS.
+
