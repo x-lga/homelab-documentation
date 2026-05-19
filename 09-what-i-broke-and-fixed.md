@@ -180,3 +180,18 @@ and encountered constantly in enterprise environments.
 **Symptom:**
 After installing the Splunk Universal Forwarder on dc01 and configuring inputs.conf,
 no events appeared in Splunk after 15 minutes.
+
+**Investigation:**
+```powershell
+# On dc01 — check forwarder status
+Get-Service SplunkForwarder | Select-Object Name, Status
+# Status: Running
+
+# Check forwarder is pointed at the right server
+& "C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" list forward-server
+# Output: Active forwards:
+#   None   ← The forwarder had no receiving server configured
+```
+
+The forwarder had no receiving server configured. The `outputs.conf` file was
+missing — the forwarder did not know where to send data.
