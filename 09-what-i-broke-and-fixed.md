@@ -195,3 +195,39 @@ Get-Service SplunkForwarder | Select-Object Name, Status
 
 The forwarder had no receiving server configured. The `outputs.conf` file was
 missing — the forwarder did not know where to send data.
+
+
+**Root cause:**
+`inputs.conf` defines what data to collect. `outputs.conf` defines where to send it.
+I had created `inputs.conf` in the `system/local` directory but had not created
+`outputs.conf`. Without outputs configuration, the forwarder collects data but
+has nowhere to send it.
+
+**Fix:**
+Created `outputs.conf` at:
+`C:\Program Files\SplunkUniversalForwarder\etc\system\local\outputs.conf`
+
+```ini
+[tcpout]
+defaultGroup = default-autolb-group
+
+[tcpout:default-autolb-group]
+server = 10.10.99.10:9997
+
+[tcpout-server://10.10.99.10:9997]
+```
+
+Restarted the forwarder:
+```powershell
+Restart-Service SplunkForwarder
+```
+
+Events appeared in Splunk within 60 seconds.
+
+**Lesson learned:**
+In Splunk, inputs and outputs are completely separate configuration files.
+`inputs.conf` = data sources. `outputs.conf` = data destinations. Both must
+be present and correct for data to flow. The Splunk documentation covers both
+but it is easy to miss the outputs configuration when focused on inputs.
+
+---
