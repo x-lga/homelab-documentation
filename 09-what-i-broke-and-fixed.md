@@ -254,3 +254,50 @@ Ports appeared filtered even though dc01 was reachable. The issue was that the
 Nessus credentialed scan was failing silently - uncredentialed scans show as
 "complete" with minimal findings when authentication fails.
 
+
+**Checked Windows Firewall on dc01:**
+Windows Defender Firewall was blocking all inbound connections from the ubuntu-admin
+IP (10.10.10.20) except the specific ports allowed by the Windows Firewall rules.
+Nessus needs ICMP, SMB (445), WMI, and several other ports to perform credentialed scans.
+
+**Root cause:**
+The GPO "Workstation-Security-Baseline" had a setting that enabled Windows Firewall
+in blocking mode for all inbound traffic not explicitly allowed. dc01 inherited
+this policy because it was in the domain root scope, not scoped to the Workstations OU.
+
+**Fix:**
+Two steps:
+1. Move the Workstation-Security-Baseline GPO to be linked at the Workstations OU only,
+   not the domain root — so it applies only to workstations, not servers.
+2. Create a Nessus scanning firewall exception rule on dc01:
+
+```powershell
+# On dc01 — allow Nessus scanner (ubuntu-admin) to reach WMI and SMB
+New-NetFirewallRule `
+    -DisplayName "Allow Nessus Scanner" `
+    -Direction   Inbound `
+    -RemoteAddress "10.10.10.20" `
+    -Protocol    TCP `
+    -LocalPort   135,139,445 `
+    -Action      Allow
+
+New-NetFirewallRule `
+    -DisplayName "Allow Nessus ICMP" `
+    -Direction   Inbound `
+    -RemoteAddress "10.10.10.20" `
+    -Protocol    ICMPv4 `
+    -Action      Allow
+```
+
+After applying these rules, the next Nessus scan returned 87 findings including
+several medium-severity missing patch findings. Scan completed in 8 minutes.
+
+**Lesson learned:**
+When a vulnerability scan returns zero or trivially few results, the first question
+is not "are the hosts secure?" but "can the scanner actually reach the hosts?"
+A scanner that cannot authenticate or reach the required ports will report
+nothing rather than reporting an error — making zero findings a false negative,
+not a clean bill of health.
+
+---
+
