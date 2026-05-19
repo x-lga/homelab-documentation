@@ -301,3 +301,10 @@ not a clean bill of health.
 
 ---
 
+## Issue 6: win10-client Could Not Receive Group Policy After Domain Join
+
+**Symptom:**
+After joining win10-client to contoso.local and running `gpupdate /force`, the
+command returned success but `gpresult /r` showed "The user does not have RSoP
+data" and no policies were listed as applied.
+
