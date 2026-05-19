@@ -113,3 +113,9 @@ permit it. Always review the complete rule list when debugging blocked traffic,
 not just the allow rules.
 
 ---
+
+## Issue 3: DHCP Not Serving Leases to VLAN 10 Clients
+
+**Symptom:**
+win10-client was getting an APIPA address (169.254.x.x) instead of an address from
+the 10.10.10.100–200 range. It could not reach the domain controller.
