@@ -30,7 +30,7 @@ repo: `06-intune-device-compliance.md`.
 
 | Setting | Value | Why |
 |---------|-------|-----|
-| Minimum OS version | 10.0.19041 | Enforces current baseline — machines below this version are non-compliant |
+| Minimum OS version | 10.0.19041 | Enforces current baseline - machines below this version are non-compliant |
 | Password required | Yes, alphanumeric, min 10 chars | Aligns with the GPO password policy for consistency |
 | Windows Defender Antivirus | Required | Ensures real-time protection is not disabled |
 | Defender real-time protection | Required | Catches tampering with AV settings |
@@ -59,3 +59,23 @@ This shows exactly which settings are failing and their current vs required valu
 ```
 
 ---
+
+## Conditional Access Integration
+
+The Conditional Access policy in Entra ID blocks access to M365 if the device
+is not compliant. This means:
+
+1. win10-client is enrolled in Intune
+2. Intune compliance policy evaluates the device
+3. Device is marked Compliant or Not Compliant
+4. When the user signs into M365 from win10-client, Entra ID Conditional Access
+   checks: "Is this device compliant?"
+5. If compliant: access granted
+6. If not compliant: access blocked with a message to enroll or remediate the device
+
+This is the cloud-managed device security model that replaces traditional
+on-premises NAC (Network Access Control) solutions in modern enterprise deployments.
+
+
+---
+
