@@ -37,3 +37,25 @@ repo: `06-intune-device-compliance.md`.
 | BitLocker | Not configured (hardware limitation) | Lab VM does not have virtual TPM — see troubleshooting |
 
 ---
+
+## Monitoring Device Compliance
+
+```
+Intune Portal (endpoint.microsoft.com) →
+  Devices → Monitor → Device Compliance
+
+Shows:
+  Compliant    : Devices meeting all policy requirements
+  Not Compliant: Devices with at least one failing requirement
+  In Grace Period: Recently enrolled — within grace period before enforcement
+```
+
+When a device shows Not Compliant:
+```
+Intune Portal → Devices → All Devices → [Device Name] →
+  Device Compliance → [Policy Name]
+
+This shows exactly which settings are failing and their current vs required values.
+```
+
+---
