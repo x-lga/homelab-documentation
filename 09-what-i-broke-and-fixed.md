@@ -59,3 +59,9 @@ to find services running with non-automatic startup - these will not survive a r
 
 ---
 
+## Issue 2: pfSense Blocking AD Connect Sync Traffic to Azure
+
+**Symptom:**
+After configuring pfSense as the default gateway for VLAN 10 (replacing the home
+router), Azure AD Connect stopped syncing. The Synchronisation Service Manager
+showed the Azure connector in a "stopped-connectivity" state.
