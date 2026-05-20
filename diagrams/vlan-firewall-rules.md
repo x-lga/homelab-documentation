@@ -32,3 +32,23 @@ Since dc01 (10.10.10.10) and ubuntu-admin (10.10.10.20) are specifically listed 
 they match Rule 3 first and are allowed. All other Work IPs skip Rule 3 (no match), hit Rule 6 (match), and are blocked.
 
 ---
+
+## GUEST Interface Rules (VLAN 20 - 10.10.20.0/24)
+
+| # | Action | Protocol | Source | Destination | Port | Purpose |
+|---|--------|---------|--------|------------|------|---------|
+| 1 | ALLOW | TCP | GUEST net | WAN | 80, 443 | Web browsing only |
+| 2 | ALLOW | UDP | GUEST net | 8.8.8.8, 1.1.1.1 | 53 | DNS to public resolvers only |
+| 3 | BLOCK | Any | GUEST net | 10.10.10.0/24 | Any | No access to Corporate VLAN |
+| 4 | BLOCK | Any | GUEST net | 10.10.99.0/24 | Any | No access to Management VLAN |
+| 5 | BLOCK | Any | GUEST net | 10.10.20.0/24 | Any | No intra-VLAN communication (IoT isolation) |
+| 6 | BLOCK | Any | Any | Any | Any | Default deny |
+
+**Why Rule 5 blocks intra-VLAN for GUEST:**
+IoT devices (smart bulbs, cameras) and isolated test machines should not communicate
+with each other. A compromised IoT device should not be able to pivot to other
+IoT devices on the same segment. This mirrors enterprise guest WiFi implementations
+where client isolation is enabled.
+
+---
+
