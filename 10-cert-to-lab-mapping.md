@@ -36,3 +36,22 @@ corresponding lab component is listed here.
 | 4.2 - Troubleshoot Windows | Event log analysis, service restart | Repo #6 scripts |
 
 ---
+
+## CompTIA Network+ (N10-009)
+
+| Exam Objective | Lab Component | Where to Find It |
+|---------------|--------------|-----------------|
+| 1.1 - OSI model | NOC runbook procedures | Repo #2 runbook |
+| 1.2 - Network protocols | pfSense firewall rules (ports, protocols) | 04-pfsense-firewall-and-vlans.md |
+| 1.4 - IP addressing and subnetting | VLAN subnets, DHCP scope design | 04-pfsense-firewall-and-vlans.md |
+| 1.5 - Routing concepts | pfSense inter-VLAN routing | 04-pfsense-firewall-and-vlans.md |
+| 1.6 - Ethernet and switching | VLAN 802.1Q tagging in Proxmox | 02-proxmox-hypervisor-setup.md |
+| 2.1 - Network hardware devices | pfSense as firewall/router | 04-pfsense-firewall-and-vlans.md |
+| 2.3 - Virtual networking | Proxmox Linux bridges, VLANs | 02-proxmox-hypervisor-setup.md |
+| 3.1 - Network services | AD-integrated DNS, DHCP | 03-windows-server-ad-dns-dhcp.md |
+| 3.4 - VPN technologies | WireGuard VPN on pfSense | 04-pfsense-firewall-and-vlans.md |
+| 4.1 - Network troubleshooting | NOC runbook, OSI-layered triage | Repo #2 runbook |
+| 4.3 - Network connectivity troubleshooting | ping, tracert, nslookup, Test-NetConnection | Repo #6 scripts |
+
+---
+
