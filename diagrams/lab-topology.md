@@ -104,4 +104,15 @@ pfSense WORK interface rules: Allow admin IPs to VLAN 99 (Rule 3 - dc01 is admin
 Connection established - Windows Security events stream to Splunk
 ```
 
+**Example 4: Kali accesses internet for package updates**
+```
+kali (10.10.20.10) sends HTTP request to external IP
+pfSense GUEST interface rules: Rule 1 — Allow GUEST → WAN TCP 80,443 — matches
+Outbound NAT translates 10.10.20.10 → pfSense WAN IP
+Packet reaches internet — response returns via NAT
+```
+
+---
+
+
 
