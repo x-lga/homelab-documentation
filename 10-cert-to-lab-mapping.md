@@ -75,4 +75,20 @@ corresponding lab component is listed here.
 
 ---
 
+## Microsoft AZ-900 (Azure Fundamentals)
+
+| Exam Objective | Lab Component | Where to Find It |
+|---------------|--------------|-----------------|
+| Cloud concepts - IaaS/PaaS/SaaS | Azure VMs (IaaS), Intune (SaaS), App Service (PaaS) | Repo #4, Repo #5 |
+| Azure architecture - regions, AZs | VM deployment region selection | Repo #4 |
+| Azure compute - VMs | vm-win-server, vm-ubuntu deployment | Repo #4 |
+| Azure networking - VNet, NSG | VNet design, NSG rules | Repo #4 |
+| Azure storage | Storage account created for NSG flow logs | Repo #4, Repo #5 |
+| Azure identity - Entra ID | Entra ID tenant, AD Connect sync | 05-azure-hybrid-connection.md |
+| Azure management - cost | Azure Advisor, Cost Analysis | Repo #5 runbook |
+| Azure management - governance | RBAC assignments | Repo #4 |
+
+---
+
+
 
