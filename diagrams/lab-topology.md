@@ -97,3 +97,11 @@ Packet dropped - firewall log records the blocked flow
 win10-client receives no response
 ```
 
+**Example 3: dc01 forwards Windows Security events to Splunk**
+```
+SplunkForwarder on dc01 (10.10.10.10) opens TCP connection to 10.10.99.10:9997
+pfSense WORK interface rules: Allow admin IPs to VLAN 99 (Rule 3 - dc01 is admin IP)
+Connection established - Windows Security events stream to Splunk
+```
+
+
