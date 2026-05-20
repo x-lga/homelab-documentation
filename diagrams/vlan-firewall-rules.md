@@ -52,3 +52,21 @@ where client isolation is enabled.
 
 ---
 
+## MGMT Interface Rules (VLAN 99 - 10.10.99.0/24)
+
+| # | Action | Protocol | Source | Destination | Port | Purpose |
+|---|--------|---------|--------|------------|------|---------|
+| 1 | ALLOW | Any | MGMT net | Any | Any | Management segment can reach anything (for log forwarding, updates) |
+| 2 | BLOCK | Any | Any | Any | Any | Default deny (other rules on other interfaces control inbound to MGMT) |
+
+**Inbound access control to MGMT:**
+Access INTO the MGMT VLAN from other segments is controlled by the rules on those
+other segments. WORK Rule 3 allows admin IPs to reach MGMT. GUEST Rules 3 and 4
+block GUEST from reaching WORK and MGMT respectively. The MGMT interface itself
+only needs to allow outbound (log forwarding, updates) and deny everything else.
+
+---
+
+
+
+
