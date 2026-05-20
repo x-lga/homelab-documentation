@@ -104,5 +104,19 @@ corresponding lab component is listed here.
 
 ---
 
+## ITIL 4 Foundation
+
+| ITIL 4 Practice | Lab Component | Where to Find It |
+|----------------|--------------|-----------------|
+| Incident Management | All playbooks with P1–P4 classification | Repos #1, #2, #3 |
+| Problem Management | Recurring issue identification, problem tickets | Repo #1, Repo #3 |
+| Change Management | Change ticket for AD Connect, NSG changes | Repo #1, Repo #4 |
+| Event Management | Disk monitoring script, PRTG alert response | Repo #1 scripts, Repo #2 runbook |
+| Service Desk | Ticket intake tool, escalation templates | Repo #1, Repo #5 |
+| Continual Improvement | Post-incident review, vulnerability re-scan | Repo #3, this repo |
+
+
+---
+
 
 
