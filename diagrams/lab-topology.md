@@ -78,3 +78,13 @@
 ```
 
 ---
+
+## Traffic Flow Examples
+
+**Example 1: win10-client resolves dc01.contoso.local**
+```
+win10-client → DNS query to 10.10.10.10 (VLAN 10 → VLAN 10 — allowed by pfSense)
+dc01 DNS responds with 10.10.10.10
+win10-client connects to dc01 on port 389 (LDAP — VLAN 10 → VLAN 10 — allowed)
+```
+
