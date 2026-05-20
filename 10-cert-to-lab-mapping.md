@@ -21,3 +21,18 @@ corresponding lab component is listed here.
 | 4.2 - Network protocols and ports | pfSense firewall rule ports | 04-pfsense-firewall-and-vlans.md |
 | 5.1 - Printer troubleshooting | Clear-PrintQueue.ps1 | Repo #6 scripts |
 
+
+## CompTIA A+ Core 2 (220-1102)
+
+| Exam Objective | Lab Component | Where to Find It |
+|---------------|--------------|-----------------|
+| 1.1 - Windows command line tools | PowerShell scripts throughout | Repo #6 scripts |
+| 1.3 - Windows features and tools | AD DS, DHCP, DNS, GPO | 03-windows-server-ad-dns-dhcp.md |
+| 1.6 - Windows Security Settings | GPO security baseline | 03-windows-server-ad-dns-dhcp.md |
+| 2.1 - Active Directory | User creation, OU structure, domain join | 03-windows-server-ad-dns-dhcp.md |
+| 2.2 - Scripting for automation | PowerShell AD scripts | Repo #1 scripts |
+| 2.6 - Common security threats | Phishing playbook, malware response | Repo #3 playbooks |
+| 4.1 - Troubleshooting methodology | All runbooks and playbooks | Repos #2, #3, #5 |
+| 4.2 - Troubleshoot Windows | Event log analysis, service restart | Repo #6 scripts |
+
+---
