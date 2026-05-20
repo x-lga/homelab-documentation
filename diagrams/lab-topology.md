@@ -114,5 +114,21 @@ Packet reaches internet — response returns via NAT
 
 ---
 
+## Component Connectivity Matrix
+
+| From → To | dc01 | win10-client | ubuntu-admin | kali | splunk-server | Internet |
+|-----------|:----:|:------------:|:------------:|:----:|:-------------:|:--------:|
+| dc01 | ✓ | ✓ | ✓ | ✗ | ✓ (admin) | ✓ |
+| win10-client | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| ubuntu-admin | ✓ | ✓ | ✓ | ✗ | ✓ (admin) | ✓ |
+| kali | ✗ | ✗ | ✗ | ✓ (same VLAN)* | ✗ | ✓ (web only) |
+| splunk-server | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+*kali → kali (intra-VLAN): blocked by the VLAN 20 rule that prevents IoT-style lateral movement
+
+
+---
+
+
 
 
