@@ -92,3 +92,13 @@ Total sync latency for password changes: 2–5 minutes
 ```
 
 ---
+
+## Sync Scope in This Lab
+
+Only the `OU=Azure-Sync` OU is in scope by default (configured during AD Connect setup).
+Users in other OUs (Staff, Contractors) are synced in lab builds where full-scope
+sync has been enabled. For testing purposes, the Azure-Sync OU provides a controlled
+set of accounts for cloud authentication testing without syncing all lab accounts.
+
+
+---
