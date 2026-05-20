@@ -88,3 +88,12 @@ dc01 DNS responds with 10.10.10.10
 win10-client connects to dc01 on port 389 (LDAP — VLAN 10 → VLAN 10 — allowed)
 ```
 
+**Example 2: win10-client tries to reach kali (VLAN 20) - should be blocked**
+```
+win10-client sends packet to 10.10.20.10 (VLAN 10 source)
+pfSense WORK interface rules: Allow WORK → WAN, Block WORK → 10.10.20.0/24
+pfSense evaluates: source VLAN 10, destination VLAN 20 → Rule 5 (Block) matches
+Packet dropped - firewall log records the blocked flow
+win10-client receives no response
+```
+
