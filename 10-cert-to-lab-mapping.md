@@ -55,3 +55,24 @@ corresponding lab component is listed here.
 
 ---
 
+## CompTIA Security+ (SY0-701)
+
+| Exam Objective | Lab Component | Where to Find It |
+|---------------|--------------|-----------------|
+| 1.1 - Threat actors and motivations | SOC playbook threat context | Repo #3 playbook |
+| 1.2 - Threat vectors and attack surfaces | pfSense isolation, VLAN segmentation | 04-pfsense-firewall-and-vlans.md |
+| 2.1 - Security controls | GPO security baseline, firewall rules, NSG | 03-windows-server, Repo #4 |
+| 2.2 - Vulnerability management | Nessus scanning, CVSS triage | 07-nessus-vulnerability-scanning.md |
+| 2.4 - Cryptography and PKI | WireGuard encryption, TLS in lab | 04-pfsense-firewall-and-vlans.md |
+| 3.1 - Security architecture | VLAN segmentation design, defence in depth | 04-pfsense-firewall-and-vlans.md |
+| 3.2 - Secure infrastructure | NSG rules, management VLAN isolation | Repo #4, this repo |
+| 4.1 - Apply mitigation techniques | Patching after Nessus findings | 07-nessus-vulnerability-scanning.md |
+| 4.2 - Security alerting and monitoring | Splunk dashboards, SPL queries | 06-splunk-siem-deployment.md |
+| 4.3 - Incident response | SOC playbooks (phishing, malware) | Repo #3 playbook |
+| 4.4 - Digital forensics | Forensic preservation in malware playbook | Repo #3 playbook |
+| 5.1 - Security governance | ITIL 4 ticket workflow, escalation | Repo #1 docs |
+| 5.5 - Auditing and assessments | AD user audit report, access review | Repo #1 scripts, Repo #3 reference |
+
+---
+
+
