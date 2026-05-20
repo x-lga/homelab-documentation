@@ -90,5 +90,19 @@ corresponding lab component is listed here.
 
 ---
 
+## Microsoft AZ-104 (Azure Administrator)
+
+| Exam Objective | Lab Component | Where to Find It |
+|---------------|--------------|-----------------|
+| Manage Azure identities | Entra ID, AD Connect, RBAC | Repo #4, 05-azure-hybrid-connection.md |
+| Implement virtual networking | VNet, subnets, NSG, Bastion | Repo #4 |
+| Deploy and manage Azure compute | VM deployment, App Service | Repo #4, Repo #5 |
+| Implement and manage storage | Storage account, blob, file shares | Repo #5 runbook |
+| Monitor and maintain resources | Log Analytics, KQL, alerts, Advisor | Repo #4, Repo #5 |
+| Manage Azure governance | RBAC at 3 scopes, tagging, budgets | Repo #4, Repo #5 |
+| Implement backup and recovery | Backup strategy documented | Repo #5 runbook |
+
+---
+
 
 
