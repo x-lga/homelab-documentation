@@ -61,3 +61,34 @@
 ```
 
 ---
+
+## What Happens During Each Sync Cycle
+
+```
+Every 30 minutes (or on manual trigger):
+
+1. IMPORT from AD Connector
+   AD Connect reads all objects in scope from contoso.local AD
+   Changes since last import are identified (delta sync)
+
+2. SYNCHRONISE in Metaverse
+   Changed objects are evaluated against sync rules
+   Attribute mapping is applied (e.g., sAMAccountName → userPrincipalName)
+   Objects are joined or projected into the metaverse
+
+3. EXPORT to Entra ID Connector
+   Metaverse changes are applied to Entra ID
+   New users → created in Entra ID
+   Changed attributes → updated in Entra ID
+   Deleted objects → disabled or deleted in Entra ID
+
+4. PASSWORD HASH SYNC (runs separately, near real-time)
+   When a password change is detected in AD:
+   AD Connect reads the NT hash, derives a new hash, and syncs to Entra ID
+   Happens within 2 minutes of password change - not waiting for 30-min cycle
+
+Total sync latency for attribute changes: up to 30 minutes
+Total sync latency for password changes: 2–5 minutes
+```
+
+---
