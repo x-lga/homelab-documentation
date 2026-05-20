@@ -67,6 +67,17 @@ only needs to allow outbound (log forwarding, updates) and deny everything else.
 
 ---
 
+## WireGuard Interface Rules
+
+| # | Action | Protocol | Source | Destination | Port | Purpose |
+|---|--------|---------|--------|------------|------|---------|
+| 1 | ALLOW | Any | 10.10.200.0/24 | 10.10.10.0/24 | Any | VPN clients → Work VLAN |
+| 2 | ALLOW | Any | 10.10.200.0/24 | 10.10.99.0/24 | Any | VPN clients → Management VLAN |
+| 3 | BLOCK | Any | 10.10.200.0/24 | 10.10.20.0/24 | Any | No VPN access to Isolated VLAN |
+| 4 | BLOCK | Any | Any | Any | Any | Default deny |
+
+
+---
 
 
 
